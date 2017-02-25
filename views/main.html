@@ -1,0 +1,82 @@
+<div class="container-fluid">
+  <div class="row">
+
+    <!--- FORMULAIRE HEADER ------------------------->
+    <div class="col-xs-10 col-xs-offset-1 col-sm-8 col-sm-offset-2 header-form" id="formulaire-b">
+      <form name="form" ng-submit="search()">
+        <div class="input-group">
+          <input class="form-control mr-sm-2" type="text" name="userSearch" placeholder="Rechercher" ng-model="userSearch" ng-pattern="regex" required>
+          <span class="input-group-btn"><input class="btn btn-default my-2 my-sm-0" type="submit" value="Rechercher"></span>
+        </div>
+
+        <!--- MESSAGES D'ERREUR FORMULAIRE -------->
+        <div class="flash bg-danger" ng-if="flash">{{flash}}</div>
+      </form>
+    </div>
+
+  </div>
+  <div class="row">
+
+    <!--- NAVBAR ---------------------------------->
+    <div class="col-xs-12" id="col-navbar" ng-include="'views/partials/navbar.html'"></div>
+  </div>
+</div>
+
+
+
+<div class="container-fluid container-font container-article-main">
+
+
+  <!--- RECHERCHE ------------------------>
+  <div class="row">
+    <div class="col-xs-4 col-xs-offset-4 col-md-2 col-md-offset-5" ng-if="firstArticle === false">
+      <div class="container2" id="container-c">
+        <img src="assets/images/ripple.svg">
+      </div>
+    </div>
+
+
+    <!--- 0 ARTICLE TROUVE ------------------------>
+
+    <div class="col-xs-12" ng-if="firstArticle === undefined">
+      <div>
+        <img src="assets/images/page404.png">
+      </div>
+    </div>
+  </div>
+
+  <!--- 1er ARTICLE TROUVE ---------------------->
+  <div class="row" ng-if="firstArticle">
+    <div class="col-xs-12 article" id="container-article-1">
+      <div>
+        <h2 class="h3" >{{firstArticle.thread.site}}</h2>
+        <div ng-click="viewArticle(firstArticle)">
+          <img ng-src="{{firstArticle.thread.main_image}}" class="image-responsive" alt="{{firstArticle.thread.title}}" >
+        </div>
+
+        <h2 class="h4" id="h2-article">{{firstArticle.thread.title}}</h2>
+        <button class="btn" ng-click="viewArticle(firstArticle)">Lire la suite</button>
+      </div>
+    </div>
+  </div>
+
+
+  <!--- ARTICLES SUIVANTS TROUVES ------------------->
+  <div class="row row-padding" ng-if="articles">
+    <div class="col-xs-12 col-lg-10 col-lg-offset-1">
+      <div class="article articles" ng-repeat="item in articles">
+        <div>
+          <h2 class="h3" >{{item.thread.site}}</h2>
+          <div ng-click="viewArticle(item)">
+            <img ng-src="{{item.thread.main_image}}" class="image-responsive" alt="{{item.thread.title}}" image-fixer>
+          </div>
+
+
+          <h2 class="h4">{{item.thread.title}}</h2>
+          <br>
+          <button class="btn" ng-click="viewArticle(item)">Lire la suite</button>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
